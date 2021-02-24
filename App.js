@@ -16,7 +16,7 @@ function App() {
         <Stack.Screen name="Home" component={Home} options={{title:"Alışveriş Merkezleri", headerStyle:{backgroundColor:'#C03461',borderBottomColor:'#F3698C',borderBottomWidth:2},headerTintColor:'#fff', headerTitleAlign:'center'}} />
         <Stack.Screen name="Detail" component={Detail} options={{title:"Kat Planı", headerStyle:{backgroundColor:'#C03461',borderBottomColor:'#F3698C',borderBottomWidth:2},headerTintColor:'#fff', headerTitleAlign:'center'}} />
       </Stack.Navigator>
-    </NavigationContainer>
+    </NavigationContainer>    
   );
 }
 

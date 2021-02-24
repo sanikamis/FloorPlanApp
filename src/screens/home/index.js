@@ -25,18 +25,15 @@ export default Home = ({navigation}) => {
 
     const handleSearch = text => {
       setQuery(text);
-      console.log(text);
       const formattedQuery = text.toLowerCase();
       const filteredData = filter(fullData, item => {
         return contains(item, formattedQuery);
       })
-      setData(filteredData);
-      //console.log(fullData)
-      
+      setData(filteredData);      
     }
 
     const contains = ({ name, city, district }, query) => {
-      if (name.toLowerCase().includes(query) || city.toLowerCase().includes(query)  || city.toLowerCase().includes(query)) {
+      if (name.toLowerCase().includes(query) || city.toLowerCase().includes(query) || district.toLowerCase().includes(query)) {
         return true;
       }
       return false;
@@ -45,12 +42,7 @@ export default Home = ({navigation}) => {
     function renderHeader(){
       return (
         <View
-          style={{
-            backgroundColor: '#fff',
-            padding: 10,
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
+          style={styles.headerView}>
           <TextInput
             autoCapitalize='none'
             autoCorrect={false}
@@ -58,12 +50,8 @@ export default Home = ({navigation}) => {
             clearButtonMode = "always"
             value={query}
             onChangeText={queryText => handleSearch(queryText)}
-            placeholder='Search'
-            style={{
-              borderRadius: 25,
-              borderColor: '#333',
-              backgroundColor: '#fff'              
-            }}            
+            placeholder='Ara'
+            style={styles.searchBar}            
           />
         </View>
       )
@@ -71,20 +59,19 @@ export default Home = ({navigation}) => {
   
   return (
     
-    <View style={{ flex: 1, padding: 24 }}>
-
-      
+    <View style={styles.mainContainer}>      
       {isLoading ? <ActivityIndicator size="large" color="#5500dc"/> : (
         <FlatList
           ListHeaderComponent={renderHeader}
           data={data}
           keyExtractor={({ id }, index) => id.toString()}
           renderItem={({ item }) => ( 
-            <TouchableHighlight underlayColor='rgba(73,182,77,1,0.9)' onPress={()=>navigation.navigate('Detail',{url:item.floorPlan})}>
-              <View style={styles.categoriesItemContainer}>
-                <Image style={styles.categoriesPhoto} resizeMode='contain' source={{ uri: item.photo }} />
-                <Text style={styles.categoriesName}>{item.name}</Text>                
-                {/* <Text style={styles.categoriesInfo}>{item.address}</Text> */}
+            <TouchableHighlight underlayColor='rgba(73,182,77,1,0.9)' 
+              onPress={()=> {navigation.setParams({name:item.name}), navigation.navigate('Detail',{url:item.floorPlan})} }>
+              <View style={styles.categoriesItemContainer}>                 
+                <Image style={styles.categoriesPhoto} resizeMode='contain' source={{ uri: item.photo }} /> 
+                <Text style={styles.categoriesName}>{item.name}</Text>                              
+                <Text style={styles.categoriesInfo}>{item.address}</Text> 
                 <Text style={styles.categoriesInfo}>{item.district + "/" + item.city}</Text>
               </View>
             </TouchableHighlight>                      

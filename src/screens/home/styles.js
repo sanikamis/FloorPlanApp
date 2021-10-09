@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
   categoriesItemContainer: {
     flex: 1,
     margin: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    //justifyContent: 'center',
+    //alignItems: 'center',
     //height: 215,
     borderColor: '#fff',
     backgroundColor: '#F3698C',
@@ -45,7 +45,8 @@ const styles = StyleSheet.create({
   categoriesInfo: {
     marginTop: 3,
     marginBottom: 5,
-    color:'#fff'
+    color:'#fff',
+    textAlign:'center'
   },
   headerView:{
     backgroundColor: '#fff',
@@ -63,7 +64,14 @@ const styles = StyleSheet.create({
   },
   navigateHeader:{
     backgroundColor:'#C03461'
-  }
+  },
+  navigateIcon: {
+    width:50,
+    height:50,
+    alignSelf:'flex-end',
+    marginBottom:10,
+    marginRight:10
+  },
   
 });
 

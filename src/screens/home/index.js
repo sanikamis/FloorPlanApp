@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Text, View, StyleSheet, TouchableHighlight, Image, TextInput } from 'react-native';
+import { ActivityIndicator, FlatList, Text, View, Linking, StyleSheet, TouchableHighlight, Image, TextInput } from 'react-native';
 import filter from 'lodash.filter'
 
 import styles from './styles';
@@ -67,12 +67,22 @@ export default Home = ({navigation}) => {
           keyExtractor={({ id }, index) => id.toString()}
           renderItem={({ item }) => ( 
             <TouchableHighlight underlayColor='rgba(73,182,77,1,0.9)' 
-              onPress={()=> {navigation.setParams({name:item.name}), navigation.navigate('Detail',{url:item.floorPlan})} }>
+              onPress={()=> {navigation.setParams({name:item.name}), navigation.navigate('Detail',{url:item.floorPlan,name:item.name})} }>
               <View style={styles.categoriesItemContainer}>                 
                 <Image style={styles.categoriesPhoto} resizeMode='contain' source={{ uri: item.photo }} /> 
                 <Text style={styles.categoriesName}>{item.name}</Text>                              
                 <Text style={styles.categoriesInfo}>{item.address}</Text> 
                 <Text style={styles.categoriesInfo}>{item.district + "/" + item.city}</Text>
+                <TouchableHighlight  onPress={()=>{
+                    console.log('navigate2');
+                    const url = Platform.select({
+                      ios: "maps:0,0?q=" + item.name,
+                      android: "geo:0,0?q=" + item.name
+                    });
+                    Linking.openURL(url);
+                  }}>
+                  <Image source={require('../../assets/images/mapsIcon.png')} style={styles.navigateIcon} />
+                </TouchableHighlight>
               </View>
             </TouchableHighlight>                      
           )}
